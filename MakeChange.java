@@ -33,11 +33,13 @@ public class MakeChange {
 	public static String returnChange(int changeIn) {
 
 		String changeOut = "The customer receives ";
-		String singleMint[] = {"twenty, ", "ten, ", "five, ", "dollar, ", "quarter, ",
-										"dime, ", "nickel, ", "penny, " };
-		String pluralMint[] = {"twenties, ", "tens, ", "fives, ", "dollars, ", "quarters, ",
-													"dimes, ", "nickels, ", "pennies, " };
+
+		String mint[][] = { { "twenty, ", "twenties, " }, { "ten, ", "tens, " }, { "five, ", "fives, " },
+				{ "dollar, ", "dollars, " }, { "quarter, ", "quarters, " }, { "dime, ", "dimes, " },
+				{ "nickel, ", "nickels, " }, { "penny, ", "pennies, " } };
+
 		int pennies[] = { 2000, 1000, 500, 100, 25, 10, 5, 1 };
+		int andCount = 0;
 
 		if (changeIn < 0) {
 			changeOut = "You didn't pay enough. Try again.";
@@ -51,13 +53,12 @@ public class MakeChange {
 			if (changeIn >= pennies[i]) {
 				changeOut += "(" + (int) (changeIn / pennies[i]) + ") ";
 
-				if ( ((int)(changeIn / pennies[i])) == 1 ) {
-					changeOut += singleMint[i];
+				if (((int) (changeIn / pennies[i])) == 1) {
+					changeOut += mint[i][0];
+				} else {
+					changeOut += mint[i][1];
+					andCount++;
 				}
-				else {
-					changeOut += pluralMint[i];
-				}
-
 
 				changeIn = changeIn % pennies[i];
 			}
